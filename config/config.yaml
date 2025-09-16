@@ -1,0 +1,139 @@
+tickers:
+  #- BRK-B
+  - AAPL
+  #- AMZN
+  #- NVDA
+  #- GOOGL
+  #- DTE
+  #- VOW3
+  #- SAP
+  #- BAS
+  #- SIE
+
+
+
+backtest:
+  initial_cash: 80000
+  pnl_output_folder: output/pnl
+
+
+
+features:
+  stationary: False
+
+stationarity:
+  enable: true
+  zscore_window: 30
+  add_pct: true
+  add_log: true
+
+
+split:
+  train_end: 0.92
+  val_end: 0.96
+
+
+data_cleaning:
+  add_missing_business_days: False
+  imputation:
+    strategy: median       # median | rolling_median
+    rolling_window: 20
+
+
+target:
+  type: price       # or "log_return"
+  
+
+paths:
+  csv_folder: stock_data_histogram
+ 
+
+  model_folder_lstm: lstm_models
+  model_folder_cnn: cnn_models
+  result_file_lstm: lstm_results.csv
+  result_file_cnn: cnn_results.csv
+
+
+technical_indicators:
+  vol_window: 20
+  mom_window: 20
+  ma_window: 20
+  bb_window: 20
+  bb_std: 2
+
+
+
+cnn:
+  window_size: 10 
+  epochs: 60
+  batch_size: 16
+  learning_rate: 0.001
+
+
+  
+
+
+candidates:
+  per_ticker:
+    BRK-B:
+      brkb_da_test_1: [RSI, SMA]
+      brkb_da_test_2: [RSI, BB_upper, BB_lower, MACD, SMA, EMA]
+      brkb_pnl_test_1: [RSI, BB_upper, BB_lower, Momentum, MACD, RollingVolatility]
+      brkb_pnl_test_2: [RSI, BB_lower, Momentum, EMA, RollingVolatility]
+
+
+    AAPL:
+      aapl_da_test_1: [RSI, EMA, RollingVolatility]
+      aapl_da_test_2: [RSI, BB_lower, MACD, SMA]
+      aapl_pnl_test_1: [BB_upper, RollingVolatility]
+      aapl_pnl_test_2: [RSI, BB_upper, BB_lower, Momentum, MACD, SMA]
+
+    AMZN:
+      amzn_da_test_1: [Momentum, MACD]
+      amzn_da_test_2: [EMA, RollingVolatility]
+      amzn_pnl_test_1: [RSI, RollingVolatility]
+      amzn_pnl_test_2: [RSI, Momentum, RollingVolatility]
+
+    BAS:
+      bas_da_test_1: [BB_upper, RollingVolatility]
+      bas_da_test_2: [BB_upper, SMA]
+      bas_pnl_test_1: [Momentum, MACD, SMA, RollingVolatility]
+      bas_pnl_test_2: [RSI, SMA, EMA]
+
+    GOOGL:
+      googl_da_test_1: [RSI, MACD, RollingVolatility]
+      googl_da_test_2: [BB_lower]
+      googl_pnl_test_1: [SMA, RollingVolatility]
+      googl_pnl_test_2: [EMA, RollingVolatility]
+
+    NVDA:
+      nvda_da_test_1: [RSI, MACD, RollingVolatility]
+      nvda_da_test_2: [RSI, BB_lower, Momentum, MACD, SMA, EMA]
+      nvda_pnl_test_1: [BB_upper, RollingVolatility]
+      nvda_pnl_test_2: [BB_upper, BB_lower]
+
+    DTE:
+      dte_da_test_1: [RSI, BB_upper, BB_lower, Momentum, MACD, EMA, RollingVolatility]
+      dte_da_test_2: [BB_lower, SMA]
+      dte_pnl_test_1: [BB_lower, Momentum, RollingVolatility]
+      dte_pnl_test_2: [Momentum, SMA]
+
+    SAP:
+      sap_da_test_1: [Momentum, SMA]
+      sap_da_test_2: [RSI, MACD, SMA, EMA, RollingVolatility]
+      sap_pnl_test_1: [BB_lower, RollingVolatility]
+      sap_pnl_test_2: [RSI, BB_lower, SMA, EMA, RollingVolatility]
+
+
+    SIE:
+      sie_da_test_1: [RSI, BB_upper, Momentum, MACD, SMA]
+      sie_da_test_2: [RSI, BB_lower, Momentum, MACD, SMA, EMA, RollingVolatility]
+      sie_pnl_val_1: [RSI, Momentum, RollingVolatility]
+      sie_pnl_val_2: [RSI, BB_lower, Momentum, MACD, SMA]
+
+
+    VOW3:
+      vow3_da_test_1: [RSI, MACD, EMA]
+      vow3_da_test_2: [RSI, BB_upper, Momentum, MACD, RollingVolatility]
+      vow3_da_test_3: [BB_upper, Momentum, RollingVolatility]
+      vow3_da_test_4: [RSI, BB_lower, RollingVolatility]
